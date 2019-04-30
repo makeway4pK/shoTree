@@ -1,0 +1,284 @@
+// shoTree header
+//	Condensed Tree display for students
+
+// 	This file was created as an educational tool to display
+// basic Binary Trees in a more human readable form. I created
+// this file in the hope that students new to the concept of trees
+// would see their own implemented Binary Trees displayed on the
+// output console, thus simplifying the debugging process a bit
+// Note: 	This code produces a "condensed" display of the tree.
+//			Be careful when working out tree's Top and Bottom views
+// 			using this display!
+// Completed : 26 April 2019
+//
+//
+// github.com/	makeway4pK
+// eMail:		 makeway4pK@gmail.com
+// Insta:		@makeway4pK
+//
+//=========================================================================
+// Copyright (C) 2019 makeway4pK
+// License: GNU GPL v3
+//  => This free code is protected by GNU GPL v3
+//		- Redistribution of this software or a derivative of this software
+//		  must attribute the Copyright holder named above, in a manner
+//		  visible to the end user
+//		- The copyright holder is not liable or responsible for anything
+//		  this software does or does not
+//		- This software comes with absolutely no warranty
+//		- You use this software at your own risk
+//		- You can modify this software
+//		- You can distribute this software
+//
+// msg frm pK (^__^)
+//		Despite these license statements, feel free to contact me if you
+//	encouter any bugs/problems with using this algorithm, i.e. only after
+//	you have tried it according to the short explanation given in the next
+//	section. I tried to package this in a way that would be easy to include
+//	in your code, yet would keep its footprint to a minimum.
+//=========================================================================
+// USAGE DETAILS:
+// 		This header defines a functor 'shoTree' template which takes
+// your tree's node type as a template parameter and the root node as the
+// function parameter.
+// e.g.	First, include this header:
+//
+//			#include "shoTree"
+//
+//		Then, make an object of shoTree template :
+//
+//			shoTree<Tnode>	treeDisp;
+//
+// 		where, Tnode is the node type used by your Binary Tree
+//				Note: your tree node MUST use 'data', 'left' and 'right'
+//					fields ,otherwise you'll have to do a search and replace
+//					in this header, carefully avoiding std::left
+//					and std::right
+//		Now, use this object as a funtion to display the tree:
+//
+//			treeDisp(root);
+//
+//		This call must be made by a tree class member, since
+// 		most likely, the root node will be a private member
+//			Not to mention, 'root' must be of type (Tnode *)
+//
+// COMPATIBILTY:
+// 64bit:
+//			Using the support of multi-byte characters, box drawing
+//			characters can be used for
+//			_shoTreeDash, _shoTreeLchild and _shoTreeRchild
+//			to get a prettier display, add this compiler option with g++:
+//
+//			-fexec-charset=cp437
+// 32bit:
+//			Lack of multi-byte characters leaves only '-','/','\\'
+//			fit for the job...
+//			Comment out the box drawing #defines and uncomment the
+//			ones using dashes and slashes. No extra compiler options needed
+//
+// Other data types:
+//				int , char , string		types are supported by default
+//			If your tree stores data types other than int, char and string,
+//			then you would need to define two functions for the data type
+//			in global scope or class shoTree:
+//
+//			int width(DType data);
+//			{
+//				returns the length of data in no. of characters as
+//				printed on console
+//			}
+//			void sho(DType data)
+//			{
+// 				prints the data on console without any newlines
+//			}
+
+#ifndef _shoTree_pK
+#define _shoTree_pK true
+#include <iostream>
+#include <queue>
+
+//	64bit only, use -fexec-charset=cp437 for compilation
+#define _shoTreeDash '═'
+#define _shoTreeLchild '╔'
+#define _shoTreeRchild '╗'
+//	32bit doesn't support multi-byte characters :(
+//	so use these:
+// #define _shoTreeDash '-'
+// #define _shoTreeLchild '/'
+// #define _shoTreeRchild '\\'
+
+template <class tnode>
+class shoTree
+{
+	int width(int a)
+	{
+		if (!a)
+			return 1;
+		int c = 1;
+		if (a < 0)
+			c = 2;
+		while (a /= 10)
+			c++;
+		return c;
+	}
+	int width(char a) { return 1; }
+	int width(std::string a) { return a.size(); }
+	void sho(int a) { std::cout << a; }
+	void sho(char a) { std::cout << a; }
+	void sho(std::string a) { std::cout << a; }
+
+	struct gtnode
+	{
+		int data[3]; // padding, width of subtree
+		struct gtnode *left, *right;
+	};
+
+	void clear(gtnode *&rut)
+	{
+		if (!rut)
+			return;
+		clear(rut->left);
+		clear(rut->right);
+		delete rut;
+		rut = NULL;
+	}
+
+	gtnode *gapTree(tnode *rut, int &ht = *new int)
+	{
+		gtnode *nn = new gtnode;
+		if (!rut)
+		{
+			nn->data[1] = nn->data[0] = 0;
+			nn->left = nn->right = NULL;
+			ht = 0;
+			return nn;
+		}
+		int lHt, rHt;
+		nn->left = gapTree(rut->left, lHt);
+		nn->right = gapTree(rut->right, rHt);
+		ht = std::max(lHt, rHt) + 1;
+		nn->data[0] = 0;
+		nn->data[2] = width(rut->data);
+		nn->data[1] = nn->left->data[1] + nn->right->data[1] + nn->data[2];
+
+		// Add PADDING to left view and right view nodes of right and an left subtree resp.ly
+		// gTPad(nn, lHt, rHt);
+		// 	return nn;
+		// }
+		// void gTPad(gtnode *rut, int &lHt, int &rHt)
+		// {
+		if (!lHt && !rHt)
+			return nn;
+
+		int lPad = nn->data[2]; //later add rut->left->data
+		int rPad = nn->right->data[0] + nn->right->data[1] + nn->data[2];
+
+		bool dir = lHt > rHt ? true : false;
+		int bal = std::min(lHt, rHt);
+
+		std::queue<gtnode *> Q;
+		gtnode *last;
+		//seeding the queue
+		if (lHt)
+			Q.push(nn->left);
+		Q.push(NULL); //seperator
+		if (rHt)
+			Q.push(nn->right);
+		while (1)
+		{
+			if (!Q.front())
+			{
+				Q.pop();
+				if (!bal)
+					lPad += nn->left->data[0] + nn->left->data[1]; //to fill empty space under left subtree
+				bal--;
+				//either right pad or left pad
+				if (dir && bal < 0)
+				{
+					last->right->data[0] += rPad; //left of seperator
+					if (Q.empty())
+						return nn;
+				}
+				else
+				{
+					if (Q.empty()) // check before accessing
+						return nn;
+					Q.front()->left->data[0] += lPad; //right of seperator
+				}
+				Q.push(NULL); // continue seperator
+				continue;
+			}
+
+			if (Q.front()->left && Q.front()->left->left)
+				Q.push(Q.front()->left);
+			if (Q.front()->right && Q.front()->right->left)
+				Q.push(Q.front()->right);
+			last = Q.front();
+			Q.pop();
+		}
+	}
+
+  public:
+	void operator()(tnode *root)
+	{
+		if (!root)
+			return;
+		std::queue<tnode *> Q;		// tree nodes
+		std::queue<gtnode *> G;		//gapTree nodes
+		gtnode *gt = gapTree(root); //get the gapTree
+		//seeding Q n G
+		Q.push(root);
+		Q.push(NULL);
+		G.push(gt);
+		std::cout << std::endl;
+		while (1)
+		{
+			if (!Q.front())
+			{ // NULL node detects new levels(time for newline)
+				std::cout << std::endl;
+				Q.pop();
+				if (Q.empty())
+					break;
+				Q.push(NULL);
+				continue;
+			}
+			std::cout.fill(' ');
+			std::cout.width(G.front()->left->data[0]);
+			std::cout << "";
+			if (Q.front()->left)
+			{
+				Q.push(Q.front()->left);
+				G.push(G.front()->left);
+				std::cout.fill(' ');
+				std::cout.width(G.front()->left->left->data[1]);
+				std::cout << "";
+
+				std::cout.fill(_shoTreeDash);
+				std::cout.width(G.front()->left->data[1] - G.front()->left->left->data[1]);
+				std::cout << std::left << _shoTreeLchild;
+			}
+
+			sho(Q.front()->data);
+
+			if (Q.front()->right)
+			{
+				Q.push(Q.front()->right);
+				G.push(G.front()->right);
+				std::cout.fill(_shoTreeDash);
+				std::cout.width(G.front()->right->data[1] - G.front()->right->right->data[1] - G.front()->right->data[2] + 1);
+				std::cout << std::right << _shoTreeRchild;
+				std::cout.fill(' ');
+				std::cout.width(G.front()->right->right->data[1] + G.front()->right->data[2] - 1);
+				std::cout << "";
+			}
+			std::cout.fill(' ');
+			std::cout.width(G.front()->right->data[0]);
+			std::cout << "";
+
+			Q.pop();
+			G.pop();
+		}
+		clear(gt);
+	}
+};
+#endif
