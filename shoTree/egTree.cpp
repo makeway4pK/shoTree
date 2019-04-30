@@ -4,7 +4,7 @@
 #include <vector>
 #include "shoTree"
 
-#define FILE "DS/sem4/BSTree.2.in"
+#define FILE "egTree.in"
 using namespace std;
 
 template <class T>
@@ -294,7 +294,7 @@ int main()
 		v.push_back(c);
 		fin >> c;
 	}
-	BSTree<string> tree = v; // by default, ascending order
+	BSTree<string,greater<string>> tree = v; // descending alpha order
 	while (1)
 	{
 
