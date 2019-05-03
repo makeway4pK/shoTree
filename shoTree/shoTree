@@ -126,9 +126,8 @@ class shoTree
 	}
 	int width(char a) { return 1; }
 	int width(std::string a) { return a.size(); }
-	void sho(int a) { std::cout << a; }
-	void sho(char a) { std::cout << a; }
-	void sho(std::string a) { std::cout << a; }
+	template <typename T>
+	void sho(T a){ std::cout << a; }
 
 	struct gtnode
 	{
