@@ -35,7 +35,7 @@
 //
 // msg frm pK (^__^)
 //		Despite these license statements, feel free to contact me if you
-//	encouter any bugs/problems with using this algorithm, i.e. only after
+//	encounter any bugs/problems with using this algorithm, i.e. only after
 //	you have tried it according to the short explanation given in the next
 //	section. I tried to package this in a way that would be easy to include
 //	in your code, yet would keep its footprint to a minimum. Cheers!
@@ -87,12 +87,12 @@
 //
 //			int width(DType data);
 //			{
-//				returns the length of data in no. of characters as
+//				Returns the length of data in no. of characters as
 //				printed on console
 //			}
 //			void sho(DType data)
 //			{
-// 				prints the data on console without any newlines
+// 				Prints the data on console without any newlines
 //			}
 
 #ifndef _shoTree_pK
