@@ -70,9 +70,12 @@
 //			Using the support of multi-byte characters, box drawing
 //			characters can be used for
 //			_shoTreeDash, _shoTreeLchild and _shoTreeRchild
-//			to get a prettier display, add this compiler option with g++:
+//			to get a prettier display, add this compiler option with
+//			a 64bit version of g++:
 //
 //			-fexec-charset=cp437
+//
+//			Get 64bit gcc for Windows here: https://mingw-w64.org/doku.php/download/mingw-builds
 // 32bit:
 //			Lack of multi-byte characters leaves only '-','/','\\'
 //			fit for the job...
