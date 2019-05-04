@@ -90,7 +90,7 @@
 //				Returns the length of data in no. of characters as
 //				printed on console
 //			}
-//			void sho(DType data)
+//			std::ostream& operator<<(std::ostream& cout,DType data)
 //			{
 // 				Prints the data on console without any newlines
 //			}
@@ -124,10 +124,6 @@ class shoTree
 			c++;
 		return c;
 	}
-	int width(char a) { return 1; }
-	int width(std::string a) { return a.size(); }
-	template <typename T>
-	void sho(T a){ std::cout << a; }
 
 	struct gtnode
 	{
@@ -260,7 +256,7 @@ class shoTree
 				std::cout << std::left << _shoTreeLchild;
 			}
 
-			sho(Q.front()->data);
+			std::cout<<Q.front()->data;
 
 			if (Q.front()->right)
 			{
