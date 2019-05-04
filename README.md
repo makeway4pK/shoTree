@@ -67,5 +67,3 @@ Not to mention, 'root' must be of type (Tnode *)</p>
 			{
  				Prints the data on console without any newlines
 			}
-
-Dummy commit text
