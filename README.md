@@ -43,9 +43,14 @@ Not to mention, 'root' must be of type (Tnode *)</p>
 			<p>Using the support of multi-byte characters, box drawing
 			characters can be used for
 			_shoTreeDash, _shoTreeLchild and _shoTreeRchild
-			to get a prettier display, add this compiler option with g++:</p>
+			to get a prettier display, add this compiler option with a 64bit
+			version of g++:</p>
 
 			-fexec-charset=cp437
+			
+			<p>Get 64bit gcc for Windows here:
+				<a href=https://mingw-w64.org/doku.php/download/mingw-builds>mingw-w64</a>
+			</p>
 <h3>32bit</h3>
 			<p>Lack of multi-byte characters leaves only '-', '/', '\\'
 			fit for the job...
@@ -53,7 +58,7 @@ Not to mention, 'root' must be of type (Tnode *)</p>
 			ones using dashes and slashes. No extra compiler options needed.</p>
 
 <h2>Other data types:</h2>
-				<p>int , char , string		types are supported by default
+				<p>int , char , string		types are supported by default.
   			If your tree stores data types other than int, char and string,
   			then you would need to define two functions for the data type
   			in global scope or class shoTree:</p>
