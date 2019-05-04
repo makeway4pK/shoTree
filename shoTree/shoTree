@@ -124,6 +124,8 @@ class shoTree
 			c++;
 		return c;
 	}
+	int width(char &a) { return 1; }
+	int width(std::string a) { return a.size(); }
 
 	struct gtnode
 	{
