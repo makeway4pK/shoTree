@@ -17,13 +17,13 @@ your tree's node type as a template parameter and the root node as the
 function parameter.</p>
 
 e.g.	First, include this header:
-
+```cpp
 			#include "shoTree"
-
+```
 Then, make an object of shoTree template :
-
+```cpp
 			shoTree<Tnode>	treeDisp;
-
+```
 where, Tnode is the node type used by your Binary Tree
 <p><strong><i>Note</i></strong>: Your tree node <b>MUST</b> use 'data', 'left' and 'right'
 			fields ,otherwise you'll have to do a search and replace
@@ -31,9 +31,9 @@ where, Tnode is the node type used by your Binary Tree
 			and std::right</p>
 
 Now, use this object as a funtion to display the tree:
-
+```cpp
 			treeDisp(root);
-
+```
 <p>This call must be made by a tree class member, since
 most likely, the root node will be a private member
 Not to mention, 'root' must be of type (Tnode *)</p>
@@ -47,9 +47,7 @@ Not to mention, 'root' must be of type (Tnode *)</p>
 			version of g++:</p>
 
 			-fexec-charset=cp437
-			
-			<p>Get 64bit gcc for Windows here:</p>
-			<a href=https://mingw-w64.org/doku.php/download/mingw-builds>mingw-w64</a>
+<p>Get 64bit gcc for Windows here: https://mingw-w64.org/doku.php/download/mingw-builds</p> 
 <h3>32bit</h3>
 			<p>Lack of multi-byte characters leaves only '-', '/', '\\'
 			fit for the job...
