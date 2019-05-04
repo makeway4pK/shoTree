@@ -63,7 +63,7 @@ Not to mention, 'root' must be of type (Tnode *)</p>
   				Returns the length of data in no. of characters as
   				printed on console
   			}
-  			void sho(DType data)
-  			{
-   				Prints the data on console without any newlines
-  			}
+			std::ostream& operator<<(std::ostream& cout,DType data)
+			{
+ 				Prints the data on console without any newlines
+			}
