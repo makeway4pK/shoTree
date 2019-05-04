@@ -48,9 +48,8 @@ Not to mention, 'root' must be of type (Tnode *)</p>
 
 			-fexec-charset=cp437
 			
-			<p>Get 64bit gcc for Windows here:
-				<a href=https://mingw-w64.org/doku.php/download/mingw-builds>mingw-w64</a>
-			</p>
+			<p>Get 64bit gcc for Windows here:</p>
+			<a href=https://mingw-w64.org/doku.php/download/mingw-builds>mingw-w64</a>
 <h3>32bit</h3>
 			<p>Lack of multi-byte characters leaves only '-', '/', '\\'
 			fit for the job...
