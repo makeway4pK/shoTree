@@ -63,15 +63,11 @@
 //
 //		This call must be made by a tree class member, since
 // 		most likely, the root node will be a private member
-
-
-
-
-
-
-
-
-//Using the support of multi-byte characters, box drawing
+//			Not to mention, 'root' must be of type (Tnode *)
+//
+// COMPATIBILTY:
+// 64bit:
+//			Using the support of multi-byte characters, box drawing
 //			characters can be used for
 //			_shoTreeDash, _shoTreeLchild and _shoTreeRchild
 //			to get a prettier display, add this compiler option with
