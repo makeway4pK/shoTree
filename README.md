@@ -47,7 +47,7 @@ Not to mention, 'root' must be of type (Tnode *)</p>
 			version of g++:</p>
 
 			-fexec-charset=cp437
-<p>Get 64bit gcc for Windows here: https://mingw-w64.org/doku.php/download/mingw-builds</p> 
+<p>Get 64bit gcc for Windows here: https://sourceforge.net/projects/mingw-w64/</p> 
 <h3>32bit</h3>
 			<p>Lack of multi-byte characters leaves only '-', '/', '\\'
 			fit for the job...
