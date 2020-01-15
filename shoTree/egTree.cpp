@@ -1,8 +1,4 @@
 #include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include "shoTree"
 
 #define FILE "egTree.in"
 using namespace std;
