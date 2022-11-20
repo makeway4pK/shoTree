@@ -1,3 +1,5 @@
+![57311726_2244741338916293_4455170453780233032_n](https://user-images.githubusercontent.com/47619514/202915215-5de8f1da-8b44-4d87-bfe6-e9d42a6757cf.jpg)
+
 <h1>Condensed Tree display for students</h1>
 
 <p>This file was created as an educational tool to display
@@ -38,7 +40,7 @@ Now, use this object as a funtion to display the tree:
 most likely, the root node will be a private member
 Not to mention, 'root' must be of type (Tnode *)</p>
 
-<h2>COMPATIBILTY:</h2>
+<h2>COMPATIBILITY:</h2>
 <h3>64bit</h3>
 			<p>Using the support of multi-byte characters, box drawing
 			characters can be used for
